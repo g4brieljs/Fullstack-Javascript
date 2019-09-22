@@ -2,6 +2,7 @@
 const express = require('express');
 // path puede acceder a lo que se conoce como fileSystem
 const path = require('path');
+const bodyParse = require('body-parser');
 const routes = require('./routes');
 
 const configs = require('./config');
@@ -41,6 +42,9 @@ app.use((req, res, next) => {
     res.locals.fechaActual = fecha.getFullYear();
     return next();
 });
+
+// Ejecutar el bodyParser
+app.use(bodyParse.urlencoded({extended: true}));
 
 // cargar las rutas
 app.use('/', routes());
