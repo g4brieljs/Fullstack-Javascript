@@ -1,3 +1,28 @@
 extends ../layout/index
 block contenido
-    h1 nosotros
+    main.container.mt-5
+        .row
+            .col-md-5
+                img.img-fluid(src="img/nosotros.jpg", alt="Imagen de nosotros")
+            .col-md-7
+                h1 #{pagina}
+                blockquote Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod mollis orci a dictum. Pellentesque sit amet semper justo, eu dapibus quam. Morbi molestie quis felis non dapibus. Maecenas id tincidunt lacus. Integer dolor enim, lacinia ut efficitur et, luctus at turpis.
+                p Curabitur est sem, elementum nec nisi a, pretium ultricies felis.
+                p Maecenas id tincidunt lacus. Integer dolor enim, lacinia ut efficitur et, luctus at turpis.
+    .listado-iconos
+        .container.mt-5.py-5.text-center
+            .row
+                .col-md-4
+                    img(src="img/icono_seguridad.svg", class="img-fluid mb-4")
+                    h2.mb-4 Máxima Seguridad
+                    p Lorem ipsum dolor sit amet, consectetur.
+                .col-md-4
+                    img(src="img/icono_destinos.svg", class="img-fluid mb-4")
+                    h2.mb-4 Hermosos destinos
+                    p Lorem ipsum dolor sit amet, consectetur.
+                .col-md-4
+                    img(src="img/icono_precios.svg", class="img-fluid mb-4")
+                    h2.mb-4 Mejores precios
+                    p Lorem ipsum dolor sit amet, consectetur.
+
+

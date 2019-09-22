@@ -4,6 +4,15 @@ const express = require('express');
 const path = require('path');
 const routes = require('./routes');
 
+const configs = require('./config');
+
+const db = require('./config/database');
+
+// db.authenticate()
+//     .then(() => console.log('DB conectada'))
+//     .catch(error => console.log(error));
+
+
 // configurar express
 const app = express();
 
@@ -18,6 +27,12 @@ app.set('views', path.join(__dirname, './views'));
 
 // Cargar carpetas statics
 app.use(express.static('public'));
+
+// Validad si estamos en Desarrollo o en production
+const config = configs[app.get('env')];
+
+// creamos la variable para el sitio web
+app.locals.titulo = config.nombreSitio;
 
 // mostrar el año actual
 app.use((req, res, next) => {
