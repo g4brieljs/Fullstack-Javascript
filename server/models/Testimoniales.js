@@ -9,7 +9,7 @@ const Testimoniales = db.define('testimoniales', {
         type: Sequelize.STRING
     },
     mensaje: {
-        type: Sequelize.DATE   
+        type: Sequelize.STRING   
     }
 });
 

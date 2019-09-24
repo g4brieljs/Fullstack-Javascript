@@ -2,14 +2,33 @@ const express = require('express');
 const router = express.Router();
 
 const Viajes = require('../models/Viajes');
+const Testimonial = require('../models/Testimoniales');
 
 
 
 module.exports = function(){
     router.get('/', (req, res) => {
-        res.render('index', {
-            pagina: 'Bienvenido a Agencia'
-        });
+        const promises = [];
+
+        // limitando la cantidad 
+        promises.push(Viajes.findAll({
+            limit: 3
+        }))
+
+        promises.push(Testimonial.findAll({
+            limit: 3
+        }))
+
+        // pasar al promises
+        const resultado = Promise.all(promises);
+        
+        resultado.then(resultado => res.render('index',{
+            pagina: 'Próximos Viajes',
+            clase: 'home',
+            viajes : resultado[0],
+            testimoniales : resultado[1]
+        }))
+        .catch(error => console.log(error))
     });
 
     router.get('/nosotros', (req, res) => {
@@ -36,9 +55,11 @@ module.exports = function(){
     });
 
     router.get('/testimoniales', (req, res) => {
-        res.render('testimoniales', {
-            pagina: 'Testimoniales'
-        });
+        Testimonial.findAll()
+            .then(testimoniales => res.render('testimoniales', {
+                    pagina: 'Testimoniales',
+                    testimoniales
+            }));
     });
 
     // Cuando se llene el form de testimonios
@@ -47,6 +68,7 @@ module.exports = function(){
         let {nombre, correo, mensaje} = req.body;
 
         let errores = [];
+
         if(!nombre){
             errores.push({'Mensaje' : 'Agrega tu nombre'})
         }
@@ -59,10 +81,23 @@ module.exports = function(){
 
         // revisar errores
 
-        if(errores.length > 0){
+        if(errores.length > 0 ){
             // mostrar la vista con errores
+            res.render('testimoniales', {
+                errores,
+                nombre,
+                correo,
+                mensaje
+            })
         }else{
             // almacenar en base de datos
+            Testimonial.create({
+                nombre,
+                correo,
+                mensaje
+            })
+            .then(testimonial => res.redirect('/testimoniales#testimonio'))
+            .catch(error => console.log(error));
         }
     })
 

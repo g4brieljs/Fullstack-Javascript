@@ -25,8 +25,9 @@ h3 {
     border-color: #DC135F;
     padding: .8rem 0;
     text-transform: uppercase;
-    border-radius: .8rem;
+    border-radius: .8rem; 
 }
+
 .btn-success:hover {
     background-color: rgb(184, 5, 73);
     border-color: rgb(192, 7, 78);
